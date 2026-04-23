@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { pool } from "../db";
-import { File } from "../types";
+import { File } from "../interface/db";
 
 export const uploadController = {
-    getFiles: async (req: Request, res: Response) => {
+    getFiles: async (_req: Request, res: Response) => {
         try {
             const result = await pool.query<File>("SELECT * FROM files ORDER BY ID ASC");
             if (result.rows.length === 0) {
