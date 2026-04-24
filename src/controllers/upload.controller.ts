@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { pool } from "../db";
 import { File } from "../interface/db";
+import { fileQueue } from "../utils/queue";
 
 export const uploadController = {
     getFiles: async (_req: Request, res: Response) => {
@@ -20,8 +21,11 @@ export const uploadController = {
                 return res.status(400).json({ message: "No file uploaded." });
             }
             const { filename } = req.file;
-            const result = await pool.query<File>("INSERT INTO files (filename) VALUES ($1) RETURNING *", [filename]);
-            res.status(201).json(result.rows[0]);
+            const result = await pool.query<File>("INSERT INTO files (filename, status) VALUES ($1, 'uploaded') RETURNING *", [filename]);
+            const file = result.rows[0];
+            await fileQueue.add("process-file", { fileId: file.id });
+            await pool.query<File>(`UPDATE files SET status = 'pending' WHERE id = $1`, [file.id]);
+            res.status(201).json(file);
         } catch (error) {
             res.status(500).json({ message: "Error uploading file." });
         }
