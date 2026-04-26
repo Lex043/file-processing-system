@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { pool } from "../db";
+import { pool } from "../db/db";
 import { File } from "../interface/db";
 import { fileQueue } from "../utils/queue";
 
