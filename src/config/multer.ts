@@ -1,13 +1,19 @@
 import multer from "multer";
 import { Request } from "express";
+import path from "path";
 
 const storage = multer.diskStorage({
     destination: (req: Request, file, cb) => {
-        cb(null, "/tmp/uploads");
+        cb(null, "uploads/");
     },
-    filename: function (req: Request, file, cb) {
+    filename: (req: Request, file, cb) => {
         const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, file.fieldname + "-" + uniqueSuffix + file.originalname);
+
+        const nameWithoutExt = path.parse(file.originalname).name.replace(/\s+/g, "-"); // optional cleanup
+
+        const ext = path.extname(file.originalname);
+
+        cb(null, `${nameWithoutExt}-${uniqueSuffix}${ext}`);
     },
 });
 

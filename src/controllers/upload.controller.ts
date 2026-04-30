@@ -20,11 +20,13 @@ export const uploadController = {
             if (!req.file) {
                 return res.status(400).json({ message: "No file uploaded." });
             }
-            const { filename } = req.file;
-            const result = await pool.query<File>("INSERT INTO files (filename, status) VALUES ($1, 'uploaded') RETURNING *", [filename]);
+            const { filename, path: filepath } = req.file;
+            const result = await pool.query<File>("INSERT INTO files (filename, filepath, status) VALUES ($1, $2, 'queued') RETURNING *", [
+                filename,
+                filepath,
+            ]);
             const file = result.rows[0];
             await fileQueue.add("process-file", { fileId: file.id });
-            await pool.query<File>(`UPDATE files SET status = 'pending' WHERE id = $1`, [file.id]);
             res.status(201).json(file);
         } catch (error) {
             res.status(500).json({ message: "Error uploading file." });

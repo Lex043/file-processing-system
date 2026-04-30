@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import { pool } from "./db";
 
 async function createSchema() {
     try {
@@ -22,6 +22,21 @@ async function createSchema() {
             ALTER TABLE files
             ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ DEFAULT NOW();
             `);
+        await pool.query(`
+            ALTER TABLE files
+            ADD COLUMN IF NOT EXISTS filepath TEXT UNIQUE;
+            `);
+
+        await pool.query(`
+            ALTER TABLE files
+            ADD COLUMN IF NOT EXISTS archive_path TEXT;
+            `);
+
+        await pool.query(`
+            ALTER TABLE files
+            ADD COLUMN IF NOT EXISTS error TEXT;
+            `);
+
         console.log("Schema created successfully.");
     } catch (error) {
         console.error("Error creating schema:", error);

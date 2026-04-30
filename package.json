@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "nodemon src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "migrate": "node-pg-migrate"
+        "worker": "ts-node src/workers/file.worker.ts"
     },
     "keywords": [],
     "author": "ALex Oyebamiji",
@@ -22,6 +22,8 @@
         "typescript": "^6.0.2"
     },
     "dependencies": {
+        "@types/archiver": "^7.0.0",
+        "archiver": "^7.0.1",
         "bullmq": "^5.76.1",
         "celebrate": "^15.0.3",
         "cors": "^2.8.5",
