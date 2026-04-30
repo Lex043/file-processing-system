@@ -5,7 +5,7 @@ import path from "path";
 
 export async function compressFile(fileId: string) {
     const result = await pool.query("SELECT filepath FROM files where id = $1", [fileId]);
-    const filePath = result.rows[0].filePath;
+    const filePath = result.rows[0].filepath;
     const zipPath = filePath + ".zip";
     const output = fs.createWriteStream(zipPath);
     const archive = archiver("zip", { zlib: { level: 9 } });

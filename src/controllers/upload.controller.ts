@@ -27,7 +27,13 @@ export const uploadController = {
             ]);
             const file = result.rows[0];
             await fileQueue.add("process-file", { fileId: file.id });
-            res.status(201).json(file);
+            res.status(201).json({
+                id: file.id,
+                filename: file.filename,
+                filepath: file.filepath,
+                created_at: file.created_at,
+                updated_at: file.updated_at,
+            });
         } catch (error) {
             res.status(500).json({ message: "Error uploading file." });
         }

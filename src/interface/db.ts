@@ -5,5 +5,6 @@ export interface File {
     error: string;
     archive_path: string;
     status: string;
-    created_at: Date;
+    created_at: string;
+    updated_at: string;
 }

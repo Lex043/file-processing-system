@@ -4,12 +4,11 @@ import IORedis from "ioredis";
 import { pool } from "../db/db";
 
 const connection = new IORedis({ maxRetriesPerRequest: null });
-
+console.log("🔥 Worker file started");
 new Worker(
     "fileQueue",
     async job => {
         const { fileId } = job.data;
-
         await pool.query("UPDATE files SET status = 'processing' WHERE id = $1", [fileId]);
 
         try {
