@@ -29,11 +29,6 @@ A simple REST API for uploading files, compressing them into .zip format asynchr
 git clone https://github.com/Lex043/file-processing-system
 cd file-processing-system
 npm install
-
-```
-
-```
-
 ```
 
 ---
