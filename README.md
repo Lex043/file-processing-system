@@ -25,6 +25,10 @@ A simple REST API for uploading files, compressing them into .zip format asynchr
 
 ## Installation
 
+```bash
+
+```
+
 git clone https://github.com/Lex043/file-processing-system
 cd file-processing-system
 npm Install
@@ -35,36 +39,37 @@ npm Install
 
 create a .env file in the root directory
 
-DB_HOST=
-DB_PORT=
-DB_USER=
-DB_PASSWORD=
-DB_NAME=
+-   DB_HOST=
+-   DB_PORT=
+-   DB_USER=
+-   DB_PASSWORD=
+-   DB_NAME=
+-   PORT=
 
-## PORT=
+---
 
 ## Run the Project
 
-## Start API Server
+### Start API Server
 
 npm run env
 
-## Start Worker
+### Start Worker
 
-## npm run Worker
+npm run Worker
 
 ## API Endpoint
 
-## Upload File
+### Upload File
 
 POST /upload
 Uploads a file and adds it to the compression queue.
 
 ---
 
-## Get the result status
+### Get the result status
 
-## GET /jobs/:id
+GET /jobs/:id
 
 ## Get the result
 
