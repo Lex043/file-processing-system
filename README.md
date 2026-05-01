@@ -28,10 +28,14 @@ A simple REST API for uploading files, compressing them into .zip format asynchr
 ```bash
 git clone https://github.com/Lex043/file-processing-system
 cd file-processing-system
-npm Install
+npm install
+
 ```
 
 ```
+
+```
+
 ---
 
 ## Environment Variables
@@ -76,4 +80,3 @@ GET /jobs/:id/result
 Returns compression status and ZIP file path when completed.
 
 ---
-```
